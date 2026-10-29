@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1792762117|4072449';
+const CACHE_VERSION = '1793260110|9194155';
 /** @type {string} */
 const CACHE_PREFIX = 'Novabia-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
