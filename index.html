@@ -93,7 +93,112 @@ body {
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <link rel="manifest" href="index.manifest.json">
+		<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+  import { 
+    getAuth, 
+    signInAnonymously, 
+    GoogleAuthProvider, 
+    FacebookAuthProvider, 
+    signInWithPopup, 
+    linkWithCredential, 
+    signInWithCredential 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMr-tGA2PkDfQdNPOWwS4huXv6aZLjIOo",
+    authDomain: "novabia.firebaseapp.com",
+    projectId: "novabia",
+    storageBucket: "novabia.firebasestorage.app",
+    messagingSenderId: "948907843434",
+    appId: "1:948907843434:web:fa098aaa656d52983a4f13",
+    measurementId: "G-49LB50FX38"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  isSupported().then(supported => { if (supported) getAnalytics(app); }).catch(() => {});
+
+  window.firebaseAuth = {
+    signInAnon: async (successCallback, errorCallback) => {
+      try {
+        await auth.authStateReady();
+        if (auth.currentUser) {
+          successCallback(auth.currentUser.uid);
+          return;
+        }
+        const res = await signInAnonymously(auth);
+        successCallback(res.user.uid);
+      } catch (err) {
+        errorCallback(err.message || String(err));
+      }
+    },
+    linkGoogle: async (successCallback, errorCallback) => {
+      try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+
+        if (auth.currentUser && auth.currentUser.isAnonymous) {
+          try {
+            const res = await linkWithCredential(auth.currentUser, credential);
+            successCallback(res.user.uid);
+          } catch (linkErr) {
+            if (linkErr.code === "auth/credential-already-in-use") {
+              const res = await signInWithCredential(auth, credential);
+              successCallback(res.user.uid);
+            } else {
+              errorCallback(linkErr.message || String(linkErr));
+            }
+          }
+        } else {
+          successCallback(result.user.uid);
+        }
+      } catch (err) {
+        errorCallback(err.message || String(err));
+      }
+    },
+    linkFacebook: async (successCallback, errorCallback) => {
+      try {
+        const provider = new FacebookAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+
+        if (auth.currentUser && auth.currentUser.isAnonymous) {
+          try {
+            const res = await linkWithCredential(auth.currentUser, credential);
+            successCallback(res.user.uid);
+          } catch (linkErr) {
+            if (linkErr.code === "auth/credential-already-in-use") {
+              const res = await signInWithCredential(auth, credential);
+              successCallback(res.user.uid);
+            } else {
+              errorCallback(linkErr.message || String(linkErr));
+            }
+          }
+        } else {
+          successCallback(result.user.uid);
+        }
+      } catch (err) {
+        errorCallback(err.message || String(err));
+      }
+    },
+    deleteAccount: async (successCallback, errorCallback) => {
+      try {
+        await auth.authStateReady();
+        if (auth.currentUser) {
+          await auth.currentUser.delete();
+          successCallback("Account deleted");
+        } else {
+          successCallback("No user to delete");
+        }
+      } catch (err) {
+        errorCallback(err.message || String(err));
+      }
+    }
+  };
+		</script>
 	</head>
 	<body>
 		<canvas id="canvas">
