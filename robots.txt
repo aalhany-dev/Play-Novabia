@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Playable Godot web build. Only the public app entrance is listed.
+Sitemap: https://play.novabia.dev/sitemap.xml
