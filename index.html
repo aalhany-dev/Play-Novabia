@@ -1,16 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>Play Novabia: Legend Evolution | Development Build</title>
-        <meta name="description" content="Play the Novabia: Legend Evolution development prototype in your browser. Explore an early companion-driven fantasy RPG; features and artwork are still in development.">
-        <link rel="canonical" href="https://play.novabia.dev/">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="Play Novabia: Legend Evolution — Development Build">
-        <meta property="og:description" content="Try the early playable build of Novabia: Legend Evolution, a companion-driven fantasy RPG.">
-        <meta property="og:url" content="https://play.novabia.dev/">
-        <meta property="og:image" content="https://novabia.dev/assets/game-main-menu.webp">
+		<title>Novabia v0.001</title>
 		<style>
 html, body, #canvas {
 	margin: 0;
@@ -100,7 +93,7 @@ body {
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <link rel="manifest" href="index.manifest.json">
-		<script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
   import { 
@@ -205,8 +198,10 @@ body {
       }
     }
   };
-		</script>
-	</head>
+</script>
+
+	        <meta name="version" content="0.001">
+    </head>
 	<body>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
@@ -224,7 +219,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":38113276,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":37810104,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -330,4 +325,5 @@ const engine = new Engine(GODOT_CONFIG);
 		</script>
 	</body>
 </html>
+
 

@@ -1,12 +1,12 @@
-// This service worker is required to expose an exported Godot project as a
+﻿// This service worker is required to expose an exported Godot project as a
 // Progressive Web App. It provides an offline fallback page telling the user
 // that they need an Internet connection to run the project if desired.
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1793260110|9194155';
+const CACHE_VERSION = '1793388797|6725816';
 /** @type {string} */
-const CACHE_PREFIX = 'Novabia-sw-cache-';
+const CACHE_PREFIX = 'Novabia-v0.001-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 /** @type {string} */
 const OFFLINE_URL = 'index.offline.html';
@@ -163,4 +163,5 @@ self.addEventListener('message', (event) => {
 		}
 	});
 });
+
 
