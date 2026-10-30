@@ -13,7 +13,7 @@ This is a **pre-release, pre-revenue playable development prototype**, not the f
 - **https://eip.novabia.dev/** — investment and economic information; owned by `aalhany-dev/EIP-Novabia`.
 
 **Public support:** `support@novabia.dev`.  
-**Investor inquiries:** `invest.in@novabia.dev`, via https://eip.novabia.dev/#investors.
+**Investor inquiries:** `invest.in@novabia.dev`, via https://eip.novabia.dev/investors/.
 
 ## File responsibilities
 
