@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>Novabia v0.002</title>
+		<title>Novabia v0.003</title>
 		<style>
 html, body, #canvas {
 	margin: 0;
@@ -101,8 +101,8 @@ body {
     signInAnonymously, 
     GoogleAuthProvider, 
     FacebookAuthProvider, 
+    linkWithPopup, 
     signInWithPopup, 
-    linkWithCredential, 
     signInWithCredential 
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -137,22 +137,25 @@ body {
     linkGoogle: async (successCallback, errorCallback) => {
       try {
         const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-
         if (auth.currentUser && auth.currentUser.isAnonymous) {
           try {
-            const res = await linkWithCredential(auth.currentUser, credential);
-            successCallback(res.user.uid);
+            const result = await linkWithPopup(auth.currentUser, provider);
+            successCallback(result.user.uid);
           } catch (linkErr) {
             if (linkErr.code === "auth/credential-already-in-use") {
-              const res = await signInWithCredential(auth, credential);
-              successCallback(res.user.uid);
+              const credential = GoogleAuthProvider.credentialFromError(linkErr);
+              if (credential) {
+                const res = await signInWithCredential(auth, credential);
+                successCallback(res.user.uid);
+              } else {
+                errorCallback(linkErr.message || String(linkErr));
+              }
             } else {
               errorCallback(linkErr.message || String(linkErr));
             }
           }
         } else {
+          const result = await signInWithPopup(auth, provider);
           successCallback(result.user.uid);
         }
       } catch (err) {
@@ -162,22 +165,25 @@ body {
     linkFacebook: async (successCallback, errorCallback) => {
       try {
         const provider = new FacebookAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-
         if (auth.currentUser && auth.currentUser.isAnonymous) {
           try {
-            const res = await linkWithCredential(auth.currentUser, credential);
-            successCallback(res.user.uid);
+            const result = await linkWithPopup(auth.currentUser, provider);
+            successCallback(result.user.uid);
           } catch (linkErr) {
             if (linkErr.code === "auth/credential-already-in-use") {
-              const res = await signInWithCredential(auth, credential);
-              successCallback(res.user.uid);
+              const credential = FacebookAuthProvider.credentialFromError(linkErr);
+              if (credential) {
+                const res = await signInWithCredential(auth, credential);
+                successCallback(res.user.uid);
+              } else {
+                errorCallback(linkErr.message || String(linkErr));
+              }
             } else {
               errorCallback(linkErr.message || String(linkErr));
             }
           }
         } else {
+          const result = await signInWithPopup(auth, provider);
           successCallback(result.user.uid);
         }
       } catch (err) {
@@ -200,7 +206,7 @@ body {
   };
 </script>
 
-	        <meta name="version" content="0.002">
+	        <meta name="version" content="0.003">
     </head>
 	<body>
 		<canvas id="canvas">
@@ -219,7 +225,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":37823832,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":38304528,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
